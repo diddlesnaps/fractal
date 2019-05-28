@@ -15,45 +15,14 @@ parts:
     build-packages:
     - build-essential
     - libgtk-3-dev
-    stage-packages:
-    - libxkbcommon0  # XKB_CONFIG_ROOT
-    - ttf-ubuntu-font-family
-    - dmz-cursor-theme
-    - light-themes
-    - adwaita-icon-theme
-    - gnome-themes-standard
-    - shared-mime-info
-    - libgtk-3-0
-    - libgdk-pixbuf2.0-0
-    - libglib2.0-bin
-    - libgtk-3-bin
-    - unity-gtk3-module
-    - libappindicator3-1
-    - locales-all
-    - xdg-user-dirs
-    - ibus-gtk3
-    - libibus-1.0-5
-    - fcitx-frontend-gtk3
-
-  # gspell:
-  #   after: [desktop-gtk3]
-  #   plugin: autotools
-  #   source: https://gitlab.gnome.org/GNOME/gspell.git
-  #   source-tag: 1.8.1
-  #   configflags:
-  #     - --prefix=/usr
-  #   build-packages:
-  #     - gtk-doc-tools
-  #     - iso-codes
-  #     - libenchant-dev
-  #     - pkg-config
 
   fractal:
     after: [desktop-gtk3]
     plugin: meson
     source: https://gitlab.gnome.org/World/fractal.git
-    source-tag: '0.1.29'
+    source-tag: $SNAPCRAFT_PROJECT_VERSION
     parse-info: [usr/share/appdata/org.gnome.Fractal.appdata.xml]
+    # # Disabled building the latest release for now
     # override-pull: |
     #   snapcraftctl pull
     #   last_committed_tag="$(git describe --tags --abbrev=0)"
@@ -84,8 +53,9 @@ parts:
       - libsecret-1-dev
       - libssl-dev
       - rustc
-    # stage-packages:
-    #   - libgstreamer-plugins-bad1.0-0
+    stage-packages:
+      - libgstreamer-plugins-bad1.0-0
+    #   # these are all provided by the base and platform snaps:
     #   - libgstreamer-plugins-base1.0-0
     #   - libgstreamer1.0
     #   - libgtksourceview-3.0-1
